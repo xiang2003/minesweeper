@@ -7,6 +7,7 @@ import {
   isCellLocked,
   restoreGame,
   setCell,
+  solveGame,
 } from "./puzzleEngine";
 import { parsePuzzle } from "./puzzleParser";
 import type { GameState, Puzzle, PuzzleDefinition } from "./types";
@@ -146,6 +147,13 @@ describe("region and puzzle completion", () => {
     const s = fillAll(createGame(puzzle), solutionIds(puzzle));
     expect(s.completed).toBe(true);
     expect(getProgress(puzzle, s).ratio).toBe(1);
+  });
+
+  it("solveGame produces the finished board", () => {
+    const s = solveGame(puzzle);
+    expect(s.completed).toBe(true);
+    expect(s.completedRegions).toEqual([0, 1]);
+    expect(s.cells.filter((c) => c === "filled")).toHaveLength(4);
   });
 
   it("counts wrong fills in progress (no correctness leak) and caps at 100%", () => {

@@ -84,7 +84,7 @@ function BoardPlaceholder({ puzzle }: { puzzle: Puzzle }) {
 
 function Game({ puzzle }: { puzzle: Puzzle }) {
   const { t, lang } = useI18n();
-  const { game, set, click, reset, getState, lastCompletedRegion } = useGame(puzzle);
+  const { game, set, click, reset, autoSolve, cleared, getState, lastCompletedRegion } = useGame(puzzle);
   const [tool, setTool] = useState<Tool>("fill");
   const progress = getProgress(puzzle, game);
   const next = getNextPuzzle(puzzle.id);
@@ -117,14 +117,21 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
             <span aria-hidden="true">✕</span> {t.mark}
           </button>
         </div>
-        <ConfirmButton
-          label={t.restart}
-          question={t.restartQuestion}
-          confirmLabel={t.restart}
-          cancelLabel={t.cancel}
-          className="btn btn-small btn-danger"
-          onConfirm={reset}
-        />
+        <div className={styles.actions}>
+          {cleared && !game.completed && (
+            <button type="button" className="btn btn-small" title={t.autoSolveHint} onClick={autoSolve}>
+              <span aria-hidden="true">✦</span> {t.autoSolve}
+            </button>
+          )}
+          <ConfirmButton
+            label={t.restart}
+            question={cleared ? t.restartQuestionCleared : t.restartQuestion}
+            confirmLabel={t.restart}
+            cancelLabel={t.cancel}
+            className="btn btn-small btn-danger"
+            onConfirm={reset}
+          />
+        </div>
       </div>
 
       <PuzzleBoard puzzle={puzzle} game={game} tool={tool} getState={getState} onSet={set} onClick={click} />

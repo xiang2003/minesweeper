@@ -136,11 +136,14 @@ localStorage key：`mosaic-puzzle-save`，匯出檔名：`mosaic-puzzle-save.jso
       "markedCells": [0, 1],
       "completedRegions": [0],
       "completed": false,
+      "cleared": true,
       "updatedAt": 1790000000000
     }
   }
 }
 ```
+
+`cleared` 表示這關「曾經破解過」：重新開始只會清空盤面，不會清掉它，因此關卡選擇仍會顯示圖片，遊戲中也會出現「一鍵破解」按鈕；只有「清除所有資料」會移除。舊存檔沒有這個欄位時，`completed: true` 會視為已破解。
 
 匯入時會完整驗證格式（版本、puzzle id、cell id 為不重複的非負整數、型別、檔案大小），任何一處不合法就整份拒絕，不會動到現有資料；未知欄位會被丟棄。載入進度時 Region／Puzzle 的完成狀態一律由 engine 重新計算，不直接信任存檔內容。
 

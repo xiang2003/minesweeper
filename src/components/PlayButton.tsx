@@ -11,7 +11,7 @@ export default function PlayButton() {
   const { t } = useI18n();
   const hydrated = useHydrated();
   const saves = hydrated ? loadAll().saves : {};
-  const target = puzzles.find((p) => !saves[p.id]?.completed) ?? puzzles[0];
+  const target = puzzles.find((p) => !saves[p.id]?.cleared) ?? puzzles[0];
   const started = Object.keys(saves).length > 0;
 
   return (

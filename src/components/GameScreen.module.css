@@ -34,6 +34,14 @@
   margin: 0 auto 12px;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+}
+
 .tools {
   display: inline-flex;
   gap: 4px;

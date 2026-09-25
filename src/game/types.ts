@@ -85,6 +85,8 @@ export type GameSave = {
   markedCells: number[];
   completedRegions: number[];
   completed: boolean;
+  /** Solved at least once. Survives restarting the level; only "Reset All Data" clears it. */
+  cleared: boolean;
   updatedAt: number;
 };
 

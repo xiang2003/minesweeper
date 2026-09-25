@@ -6,6 +6,7 @@ import {
   createSave,
   exportSave,
   importSave,
+  isCleared,
   loadAll,
   loadGame,
   resetAll,
@@ -43,6 +44,7 @@ const sampleSave = (puzzleId = "p1", overrides: Partial<GameSave> = {}): GameSav
   markedCells: [1],
   completedRegions: [0],
   completed: false,
+  cleared: false,
   updatedAt: 1_700_000_000_000,
   ...overrides,
 });
@@ -63,6 +65,7 @@ describe("save / load", () => {
       markedCells: [2],
       completedRegions: [0],
       completed: false,
+      cleared: false,
       updatedAt: 42,
     });
   });
@@ -79,6 +82,19 @@ describe("save / load", () => {
     expect(Object.keys(loadAll(storage).saves).sort()).toEqual(["p1", "p2"]);
   });
 
+  it("keeps cleared once a level was completed, even when later progress is incomplete", () => {
+    saveGame(sampleSave("p1", { completed: true }), storage);
+    saveGame(sampleSave("p1", { completed: false, selectedCells: [] }), storage);
+    expect(loadGame("p1", storage)).toMatchObject({ completed: false, cleared: true });
+  });
+
+  it("treats completed saves from before `cleared` existed as cleared", () => {
+    const legacy: Partial<GameSave> = sampleSave("p1", { completed: true });
+    delete legacy.cleared;
+    storage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, saves: { p1: legacy } }));
+    expect(isCleared("p1", storage)).toBe(true);
+  });
+
   it("works without storage", () => {
     expect(() => saveGame(sampleSave(), null)).not.toThrow();
     expect(loadGame("p1", null)).toBeNull();
@@ -92,6 +108,14 @@ describe("reset", () => {
     resetGame("p1", storage);
     expect(loadGame("p1", storage)).toBeNull();
     expect(loadGame("p2", storage)).not.toBeNull();
+  });
+
+  it("keeps the cleared record when restarting a solved level", () => {
+    saveGame(sampleSave("p1", { completed: true }), storage);
+    resetGame("p1", storage);
+    const save = loadGame("p1", storage);
+    expect(save).toMatchObject({ selectedCells: [], markedCells: [], completed: false, cleared: true });
+    expect(isCleared("p1", storage)).toBe(true);
   });
 
   it("resets all data", () => {
@@ -136,6 +160,7 @@ describe("invalid save data", () => {
     ["non-integer id", JSON.stringify({ version: 1, saves: { p1: sampleSave("p1", { selectedCells: [1.5] }) } })],
     ["string cells", JSON.stringify({ version: 1, saves: { p1: { ...sampleSave(), selectedCells: "0,1" } } })],
     ["bad completed", JSON.stringify({ version: 1, saves: { p1: { ...sampleSave(), completed: "yes" } } })],
+    ["bad cleared", JSON.stringify({ version: 1, saves: { p1: { ...sampleSave(), cleared: 1 } } })],
     ["bad updatedAt", JSON.stringify({ version: 1, saves: { p1: { ...sampleSave(), updatedAt: "now" } } })],
   ];
 

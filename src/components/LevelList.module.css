@@ -10,11 +10,10 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  text-decoration: none;
   transition:
     border-color 120ms ease,
     transform 120ms ease;
@@ -22,29 +21,70 @@
 
 .item:hover {
   border-color: var(--line-strong);
-  transform: translateY(-1px);
 }
 
 .thumb {
+  position: relative;
   flex: none;
   display: grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
+  width: 76px;
+  height: 76px;
+  padding: 0;
   border-radius: 8px;
   border: 1px solid var(--line);
   background-color: var(--surface-2);
   background-size: cover;
   background-position: center;
   color: var(--ink-soft);
+  font: inherit;
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+}
+
+.thumbCleared {
+  cursor: zoom-in;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.thumbCleared:hover {
+  transform: scale(1.04);
+  box-shadow: var(--shadow);
+}
+
+.zoom {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.45);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  align-self: stretch;
+  text-decoration: none;
+  border-radius: 6px;
 }
 
 .info {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-width: 0;
   font-size: 0.9rem;
 }
@@ -59,10 +99,17 @@
   font-size: 0.85rem;
   color: var(--ink-soft);
   text-align: right;
-  max-width: 11em;
+  max-width: 10em;
 }
 
 .status[data-completed="true"] {
   color: var(--success);
   font-weight: 600;
+}
+
+.picture {
+  width: 100%;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
 }

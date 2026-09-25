@@ -1,49 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useI18n } from "@/i18n/useI18n";
 import HelpContent from "./HelpContent";
-import styles from "./HelpDialog.module.css";
+import Modal from "./Modal";
 
-/** Modal "How to play" dialog built on native <dialog> (focus trap, Esc to close). */
+/** "How to play" dialog. */
 export default function HelpDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useI18n();
-  const ref = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
-
   return (
-    <dialog
-      ref={ref}
-      className={styles.dialog}
-      aria-labelledby="help-title"
+    <Modal
+      open={open}
       onClose={onClose}
-      onClick={(e) => {
-        // Click on the backdrop (the dialog element itself, outside the panel) closes it.
-        if (e.target === e.currentTarget) onClose();
-      }}
+      title={t.howToPlay}
+      footer={
+        <button type="button" className="btn btn-primary" onClick={onClose}>
+          {t.help.start}
+        </button>
+      }
     >
-      <div className={styles.panel}>
-        <header className={styles.header}>
-          <h2 id="help-title">{t.howToPlay}</h2>
-          <button type="button" className="btn btn-ghost btn-small" onClick={onClose} aria-label={t.close}>
-            ✕
-          </button>
-        </header>
-        <div className={styles.body}>
-          <HelpContent headingLevel={3} />
-        </div>
-        <footer className={styles.footer}>
-          <button type="button" className="btn btn-primary" onClick={onClose}>
-            {t.help.start}
-          </button>
-        </footer>
-      </div>
-    </dialog>
+      <HelpContent headingLevel={3} />
+    </Modal>
   );
 }

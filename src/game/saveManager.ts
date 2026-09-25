@@ -34,6 +34,8 @@ export function createSave(state: GameState, now = Date.now()): GameSave {
     markedCells: markedCellIds(state),
     completedRegions: [...state.completedRegions],
     completed: state.completed,
+    // saveGame keeps an earlier `cleared: true`; here we only know about the current run.
+    cleared: state.completed,
     updatedAt: now,
   };
 }
@@ -62,6 +64,7 @@ function parseGameSave(key: string, v: unknown): GameSave | string {
   if (v.markedCells !== undefined && !isIdList(v.markedCells)) return `save "${key}" has invalid markedCells`;
   if (!isIdList(v.completedRegions)) return `save "${key}" has invalid completedRegions`;
   if (typeof v.completed !== "boolean") return `save "${key}" has invalid completed flag`;
+  if (v.cleared !== undefined && typeof v.cleared !== "boolean") return `save "${key}" has invalid cleared flag`;
   if (typeof v.updatedAt !== "number" || !Number.isFinite(v.updatedAt) || v.updatedAt < 0) {
     return `save "${key}" has invalid updatedAt`;
   }
@@ -72,6 +75,8 @@ function parseGameSave(key: string, v: unknown): GameSave | string {
     markedCells: v.markedCells ? [...(v.markedCells as number[])] : [],
     completedRegions: [...v.completedRegions],
     completed: v.completed,
+    // Saves from before `cleared` existed: a completed level counts as cleared.
+    cleared: v.cleared === true || v.completed,
     updatedAt: v.updatedAt,
   };
 }
@@ -117,16 +122,36 @@ export function loadGame(puzzleId: string, storage: StorageLike | null = default
   return loadAll(storage).saves[puzzleId] ?? null;
 }
 
+/** Writes one level's save. `cleared` is sticky: once true it stays true. */
 export function saveGame(save: GameSave, storage: StorageLike | null = defaultStorage()): void {
   const data = loadAll(storage);
-  data.saves[save.puzzleId] = save;
+  const cleared = save.cleared || save.completed || data.saves[save.puzzleId]?.cleared === true;
+  data.saves[save.puzzleId] = { ...save, cleared };
   writeAll(data, storage);
 }
 
+/** Clears the current progress of one level but keeps whether it was ever cleared. */
 export function resetGame(puzzleId: string, storage: StorageLike | null = defaultStorage()): void {
   const data = loadAll(storage);
-  delete data.saves[puzzleId];
+  const previous = data.saves[puzzleId];
+  if (previous?.cleared) {
+    data.saves[puzzleId] = {
+      puzzleId,
+      selectedCells: [],
+      markedCells: [],
+      completedRegions: [],
+      completed: false,
+      cleared: true,
+      updatedAt: Date.now(),
+    };
+  } else {
+    delete data.saves[puzzleId];
+  }
   writeAll(data, storage);
+}
+
+export function isCleared(puzzleId: string, storage: StorageLike | null = defaultStorage()): boolean {
+  return loadGame(puzzleId, storage)?.cleared === true;
 }
 
 export function resetAll(storage: StorageLike | null = defaultStorage()): void {

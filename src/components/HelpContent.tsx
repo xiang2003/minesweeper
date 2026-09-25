@@ -93,6 +93,7 @@ export default function HelpContent({ headingLevel = 2 }: { headingLevel?: 2 | 3
         <H>{h.regionsTitle}</H>
         <p>{h.regions}</p>
         <p className="muted">{h.progressNote}</p>
+        <p className="muted">{h.replayNote}</p>
         <p className="muted">{h.savedNote}</p>
       </section>
     </div>

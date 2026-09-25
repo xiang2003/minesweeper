@@ -30,6 +30,14 @@ export function restoreGame(puzzle: Puzzle, filled: number[], marked: number[] =
   return withCompletion(puzzle, { puzzleId: puzzle.id, cells, completedRegions: [], completed: false });
 }
 
+/** The finished board: every solution cell filled, every region complete. Used by "auto-solve". */
+export function solveGame(puzzle: Puzzle): GameState {
+  return restoreGame(
+    puzzle,
+    puzzle.cells.filter((c) => puzzle.solution[c.id]).map((c) => c.id),
+  );
+}
+
 export function isValidCellId(puzzle: Puzzle, id: number): boolean {
   return Number.isInteger(id) && id >= 0 && id < puzzle.cells.length;
 }

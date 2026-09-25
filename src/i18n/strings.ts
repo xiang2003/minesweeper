@@ -27,6 +27,8 @@ const en = {
   notStarted: "Not started",
   inProgress: (done: number, total: number) => `In progress · ${done}/${total} regions`,
   completed: "✓ Completed",
+  completedReplaying: "✓ Completed · Replaying",
+  viewPicture: "View picture",
   levelAria: (id: string, title: string, w: number, h: number, status: string) =>
     `Level ${id}, ${title}, ${w} by ${h}, ${status}`,
 
@@ -39,6 +41,9 @@ const en = {
   mark: "Mark",
   restart: "Restart",
   restartQuestion: "Clear this level?",
+  restartQuestionCleared: "Clear the board? The unlocked picture is kept.",
+  autoSolve: "Auto-solve",
+  autoSolveHint: "Fill in the answer (available because you solved this level before)",
   howToPlay: "How to play",
   close: "Close",
   boardHelp: (size: number, regionOnly: boolean) =>
@@ -117,6 +122,8 @@ const en = {
     progressNote:
       "The progress bar shows filled cells ÷ cells to fill. Wrong fills count too, so 100% does not always mean solved.",
     savedNote: "Progress is saved automatically.",
+    replayNote:
+      "Solved levels stay unlocked: restarting keeps the picture in Level Select, and an Auto-solve button fills in the answer.",
     start: "Got it",
   },
 };
@@ -146,6 +153,8 @@ const zhHant: Strings = {
   notStarted: "尚未開始",
   inProgress: (done, total) => `進行中 · ${done}/${total} 區塊`,
   completed: "✓ 已完成",
+  completedReplaying: "✓ 已完成 · 重玩中",
+  viewPicture: "查看圖片",
   levelAria: (id, title, w, h, status) => `第 ${id} 關，${title}，${w} 乘 ${h}，${status}`,
 
   level: (id) => `第 ${id} 關`,
@@ -156,6 +165,9 @@ const zhHant: Strings = {
   mark: "標記",
   restart: "重新開始",
   restartQuestion: "清除本關進度？",
+  restartQuestionCleared: "清除盤面？已解鎖的圖片會保留。",
+  autoSolve: "一鍵破解",
+  autoSolveHint: "直接填入答案（此關已破解過才可使用）",
   howToPlay: "遊戲說明",
   close: "關閉",
   boardHelp: (size, regionOnly) =>
@@ -222,6 +234,7 @@ const zhHant: Strings = {
     regions: "一個區塊的格子全部正確時，該區塊會鎖定並顯示對應的圖片。解開所有區塊即可看到完整圖片。",
     progressNote: "進度條 = 已點亮格數 ÷ 需點亮格數。點錯的格子也會計入，所以 100% 不一定代表完成。",
     savedNote: "進度會自動儲存。",
+    replayNote: "破解過的關卡會永久解鎖：重新開始後，關卡選擇仍會顯示圖片，並可使用「一鍵破解」直接填入答案。",
     start: "開始玩",
   },
 };
