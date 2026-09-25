@@ -1,0 +1,53 @@
+import type { PuzzleDefinition } from "@/game/types";
+
+const puzzle003: PuzzleDefinition = {
+  id: "003",
+  title: { en: "Ribbon Girl", "zh-Hant": "蝴蝶結少女" },
+  image: "images/puzzle-003.svg",
+  clueRadius: 1,
+  clueScope: "region",
+  solution: [
+    "............",
+    ".##......##.",
+    ".###....###.",
+    ".####..####.",
+    ".##########.",
+    "..########..",
+    "..########..",
+    ".##########.",
+    ".####..####.",
+    ".###....###.",
+    ".##......##.",
+    "............",
+  ],
+  clues: [
+    "...1.00..2..",
+    "2.........4.",
+    ".67..1..4763",
+    ".6....4....3",
+    "2..4.4..4...",
+    "..3.6...53.1",
+    "1.6....9..3.",
+    ".....4...7..",
+    ".6...1....6.",
+    ".66.3.13.66.",
+    ".4.1...1....",
+    "....0...0.2.",
+  ],
+  regions: [
+    "AAAABBBBCCCC",
+    "AAAABBBBCCCC",
+    "AAAABBBBCCCC",
+    "AAABBBBBBCCC",
+    "AAABBBBBBCCC",
+    "AAADDDEEECCC",
+    "DDDDDDEEEEEE",
+    "DDDDDDEEEEEE",
+    "DDDFFFFFFEEE",
+    "DDDFFFFFFEEE",
+    "DDDFFFFFFEEE",
+    "DDDFFFFFFEEE",
+  ],
+};
+
+export default puzzle003;
