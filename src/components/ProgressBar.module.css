@@ -1,0 +1,39 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 600px);
+  margin: 12px auto 0;
+  font-size: 0.9rem;
+}
+
+.label {
+  color: var(--ink-soft);
+}
+
+.bar {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  height: 10px;
+}
+
+.segment {
+  flex: 1;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  transition: background-color 400ms ease;
+}
+
+.segment[data-done="true"] {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  min-width: 3.5ch;
+  text-align: right;
+}

@@ -1,0 +1,52 @@
+.sections {
+  display: grid;
+  gap: 14px;
+}
+
+.sections h2 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+
+.sections p {
+  margin: 0 0 14px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.confirm {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+
+.confirm p {
+  margin-bottom: 10px;
+}
+
+.message {
+  min-height: 1.5em;
+  margin: 0;
+  font-weight: 550;
+}
+
+.message[data-kind="ok"] {
+  color: var(--success);
+}
+
+.message[data-kind="ok"]::before {
+  content: "✓ ";
+}
+
+.message[data-kind="error"] {
+  color: var(--danger);
+}
+
+.message[data-kind="error"]::before {
+  content: "⚠ ";
+}

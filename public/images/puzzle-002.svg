@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f2d4f"/>
+      <stop offset="1" stop-color="#4a6a8f"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b4c6f"/>
+      <stop offset="1" stop-color="#152a40"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#sky)"/>
+  <g fill="#fdf6e3">
+    <circle cx="40" cy="40" r="1.8"/><circle cx="90" cy="70" r="1.2"/><circle cx="150" cy="30" r="1.5"/>
+    <circle cx="340" cy="50" r="1.8"/><circle cx="370" cy="110" r="1.2"/><circle cx="300" cy="25" r="1.2"/>
+    <circle cx="60" cy="130" r="1.2"/><circle cx="230" cy="60" r="1.2"/>
+  </g>
+  <circle cx="330" cy="80" r="26" fill="#f4ecd0"/>
+  <circle cx="341" cy="72" r="24" fill="#26365a"/>
+  <path d="M232 118 L400 60 L400 150 Z" fill="#ffe8a3" opacity="0.28"/>
+  <path d="M168 118 L0 70 L0 160 Z" fill="#ffe8a3" opacity="0.18"/>
+  <rect y="270" width="400" height="130" fill="url(#sea)"/>
+  <g stroke="#7fa3c7" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <line x1="20" y1="300" x2="70" y2="300"/>
+    <line x1="280" y1="320" x2="350" y2="320"/>
+    <line x1="60" y1="350" x2="100" y2="350"/>
+    <line x1="300" y1="370" x2="330" y2="370"/>
+  </g>
+  <path d="M110 400 L130 285 L175 255 L245 255 L285 290 L300 400 Z" fill="#3b3a36"/>
+  <path d="M130 285 L175 255 L245 255 L285 290 Z" fill="#5b7f4a"/>
+  <path d="M178 255 L186 130 L214 130 L222 255 Z" fill="#f5f1e8"/>
+  <path d="M182 205 L218 205 L220 230 L180 230 Z" fill="#c8453b"/>
+  <path d="M184 155 L216 155 L217 180 L183 180 Z" fill="#c8453b"/>
+  <rect x="178" y="108" width="44" height="24" rx="3" fill="#ffe29a"/>
+  <rect x="190" y="112" width="20" height="16" fill="#fff8dc"/>
+  <path d="M172 108 L200 84 L228 108 Z" fill="#c8453b"/>
+  <rect x="172" y="130" width="56" height="5" fill="#2c2c3a"/>
+  <rect x="195" y="232" width="10" height="23" rx="2" fill="#2c2c3a"/>
+</svg>
