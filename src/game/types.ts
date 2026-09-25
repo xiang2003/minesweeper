@@ -7,6 +7,8 @@
  */
 
 /** Compact, human-editable level format. Every string row must be `width` long. */
+export type ClueScope = "region" | "grid";
+
 export type PuzzleDefinition = {
   id: string;
   title: string;
@@ -14,6 +16,11 @@ export type PuzzleDefinition = {
   image: string;
   /** Clue counts the (2r+1)×(2r+1) square around the clue cell, the cell itself included. Default 1. */
   clueRadius?: number;
+  /**
+   * Which cells of that square a clue counts:
+   * "region" (default) = only cells in the clue's own region; "grid" = every cell, across region borders.
+   */
+  clueScope?: ClueScope;
   /** Solution: "#" = filled, "." = empty. */
   solution: string[];
   /**
@@ -49,6 +56,7 @@ export type Puzzle = {
   width: number;
   height: number;
   clueRadius: number;
+  clueScope: ClueScope;
   cells: Cell[];
   regions: Region[];
   /** solution[cellId] === true when the cell must be filled. */

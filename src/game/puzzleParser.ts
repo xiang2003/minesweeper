@@ -26,10 +26,14 @@ export function parsePuzzle(def: PuzzleDefinition): Puzzle {
   const height = def.solution.length;
   const width = def.solution[0]?.length ?? 0;
   const clueRadius = def.clueRadius ?? 1;
+  const clueScope = def.clueScope ?? "region";
 
   if (width === 0 || height === 0) throw new Error(`Puzzle ${def.id}: empty grid`);
   if (!Number.isInteger(clueRadius) || clueRadius < 0) {
     throw new Error(`Puzzle ${def.id}: clueRadius must be a non-negative integer`);
+  }
+  if (clueScope !== "region" && clueScope !== "grid") {
+    throw new Error(`Puzzle ${def.id}: clueScope must be "region" or "grid"`);
   }
   for (const [name, rows] of [
     ["solution", def.solution],
@@ -45,6 +49,7 @@ export function parsePuzzle(def: PuzzleDefinition): Puzzle {
   const regions: Region[] = [];
   const cells: Cell[] = [];
   const solution: boolean[] = [];
+  const clueCells: number[] = [];
 
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
@@ -69,23 +74,26 @@ export function parsePuzzle(def: PuzzleDefinition): Puzzle {
       if (clueChar !== "." && clueChar !== "?" && !/^[0-9]$/.test(clueChar)) {
         throw new Error(`Puzzle ${def.id}: invalid clue char "${clueChar}" at ${row},${col}`);
       }
-      const hasClue = clueChar !== ".";
+      if (clueChar !== ".") clueCells.push(id);
       cells.push({
         id,
         row,
         col,
         regionId,
         // "?" is filled in below from the solution; digits are kept as written (validator checks them).
-        clue: hasClue && clueChar !== "?" ? Number(clueChar) : undefined,
-        neighbors: hasClue ? neighborhood(row, col, width, height, clueRadius) : [],
+        clue: clueChar !== "." && clueChar !== "?" ? Number(clueChar) : undefined,
+        neighbors: [],
       });
     }
   }
 
-  for (const cell of cells) {
-    if (cell.neighbors.length > 0 && cell.clue === undefined) {
-      cell.clue = cell.neighbors.filter((n) => solution[n]).length;
-    }
+  // Neighborhoods need every cell's region, so they are built after the grid is read.
+  for (const id of clueCells) {
+    const cell = cells[id];
+    cell.neighbors = neighborhood(cell.row, cell.col, width, height, clueRadius).filter(
+      (n) => clueScope === "grid" || cells[n].regionId === cell.regionId,
+    );
+    cell.clue ??= cell.neighbors.filter((n) => solution[n]).length;
   }
 
   return {
@@ -95,6 +103,7 @@ export function parsePuzzle(def: PuzzleDefinition): Puzzle {
     width,
     height,
     clueRadius,
+    clueScope,
     cells,
     regions,
     solution,

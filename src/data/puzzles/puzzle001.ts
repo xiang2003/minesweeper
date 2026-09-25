@@ -5,6 +5,7 @@ const puzzle001: PuzzleDefinition = {
   title: "Sunrise",
   image: "images/puzzle-001.svg",
   clueRadius: 1,
+  clueScope: "region",
   solution: [
     "........",
     ".##..##.",
@@ -17,13 +18,13 @@ const puzzle001: PuzzleDefinition = {
   ],
   clues: [
     "..21.22.",
-    ".5..4.5.",
-    ".8....8.",
-    ".8..9...",
-    "....986.",
-    "1.6.8.31",
-    ".13....0",
-    "0.1.2..0",
+    "35..3...",
+    ".8....85",
+    ".66.4...",
+    "....453.",
+    "1.6.5.3.",
+    ".1.....0",
+    "0.1.1..0",
   ],
   regions: [
     "AAAABBBB",

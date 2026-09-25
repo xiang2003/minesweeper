@@ -37,9 +37,20 @@ describe("parsePuzzle", () => {
       [0, 1, 4, 5],
       [2, 3, 6, 7],
     ]);
-    // Cell (0,1) sees columns 0..2 in both rows: 4 filled.
-    expect(puzzle.cells[1].clue).toBe(4);
+    expect(puzzle.clueScope).toBe("region");
     expect(puzzle.cells[0].neighbors).toEqual([0, 1, 4, 5]);
+  });
+
+  it("counts only the clue's own region by default", () => {
+    // Cell (0,1) is in region A; its 3×3 also reaches column 2 (region B), which is ignored.
+    expect(puzzle.cells[1].neighbors).toEqual([0, 1, 4, 5]);
+    expect(puzzle.cells[1].clue).toBe(2);
+  });
+
+  it('counts across region borders with clueScope "grid"', () => {
+    const grid = parsePuzzle({ ...def, clueScope: "grid" });
+    expect(grid.cells[1].neighbors).toEqual([0, 1, 2, 4, 5, 6]);
+    expect(grid.cells[1].clue).toBe(4);
   });
 
   it("rejects malformed rows", () => {

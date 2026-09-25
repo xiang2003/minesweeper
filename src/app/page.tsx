@@ -30,6 +30,10 @@ export default function Home() {
             A number tells how many cells are filled in the square around it (<strong>3×3</strong> in most levels),
             including the number&apos;s own cell.
           </li>
+          <li>
+            Numbers only count cells inside <strong>their own region</strong> — cells across a bold border are
+            ignored.
+          </li>
           <li>Click or tap a cell to fill it. Right-click (or use Mark mode) to mark a cell you know is empty.</li>
           <li>Drag to fill or mark several cells at once.</li>
           <li>When every cell of a region is correct, that part of the picture is revealed.</li>

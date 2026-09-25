@@ -102,7 +102,9 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
       <PuzzleBoard puzzle={puzzle} game={game} tool={tool} getState={getState} onSet={set} onClick={click} />
 
       <p id="board-help" className={styles.help}>
-        Each number = filled cells in its {clueSize}×{clueSize} area. Right-click or Mark mode marks a cell as empty.
+        Each number = filled cells in its {clueSize}×{clueSize} area
+        {puzzle.clueScope === "region" ? ", counting only its own region (bold borders)" : ""}. Right-click or Mark
+        mode marks a cell as empty.
       </p>
 
       <ProgressBar completed={progress.completed} total={progress.total} />
