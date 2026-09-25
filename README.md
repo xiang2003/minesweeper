@@ -24,6 +24,12 @@
 - 所有介面文字集中在 `src/i18n/strings.ts`。新增語言：在 `src/lib/preferences.ts` 的 `LANGS` 加上語言代碼，並在 `strings.ts` 補上一份對應的字串表（TypeScript 會檢查是否缺字）。
 - 語言與「是否看過說明」存在 localStorage 的 `mosaic-puzzle-prefs`，與遊戲存檔分開；「清除所有資料」會一併清除。
 
+## 背景音樂
+
+- 音樂檔放在 `public/music/`，目前使用 `music1.mp3`（在 `src/components/BackgroundMusic.tsx` 的 `TRACK` 設定），會循環播放，換頁時不中斷。
+- 預設音量 50%，可在「設定 → 音樂」調整；調到 0% 即停止播放。音量存在 `mosaic-puzzle-prefs`。
+- 瀏覽器會阻擋未經互動的自動播放，因此音樂會在玩家第一次點擊或按鍵後開始。
+
 ## 安裝與開發
 
 需要 Node.js 20.9 以上（建議 22）。
@@ -64,6 +70,8 @@ GitHub Pages 的專案網站位於子路徑 `/<repo>`，因此 build 時需要�
 BASE_PATH=/<repo> npm run build            # macOS / Linux
 $env:BASE_PATH="/<repo>"; npm run build    # Windows PowerShell
 ```
+
+> 在 Windows 的 Git Bash 中，`/<repo>` 會被自動轉成 Windows 路徑而造成 build 失敗，請改用 PowerShell，或在指令前加上 `MSYS_NO_PATHCONV=1`。
 
 - Workflow 會自動設定 `BASE_PATH=/${{ github.event.repository.name }}`。
 - 若 repo 是 `<user>.github.io` 或使用自訂網域，請把 workflow 中的 `BASE_PATH` 改成空字串。

@@ -6,6 +6,7 @@ import { useI18n } from "@/i18n/useI18n";
 import { clearPreferences } from "@/lib/preferences";
 import ConfirmButton from "./ConfirmButton";
 import LanguagePicker from "./LanguagePicker";
+import MusicVolume from "./MusicVolume";
 import styles from "./SaveSettings.module.css";
 
 type Message = { kind: "ok" | "error"; text: string } | null;
@@ -59,6 +60,12 @@ export default function SaveSettings() {
       <section className="card" aria-labelledby="language-title">
         <h2 id="language-title">{t.language}</h2>
         <LanguagePicker />
+      </section>
+
+      <section className="card" aria-labelledby="music-title">
+        <h2 id="music-title">{t.music}</h2>
+        <p className="muted">{t.musicDesc}</p>
+        <MusicVolume />
       </section>
 
       <section className="card" aria-labelledby="backup-title">

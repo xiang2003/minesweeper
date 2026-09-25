@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import BackgroundMusic from "@/components/BackgroundMusic";
 import LangSync from "@/components/LangSync";
 import "./globals.css";
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en">
       <body>
         <LangSync />
+        <BackgroundMusic />
         {children}
       </body>
     </html>

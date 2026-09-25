@@ -14,6 +14,14 @@ describe("parsePreferences", () => {
     expect(parsePreferences(JSON.stringify({ lang: "fr", seenHelp: "yes", extra: 1 }))).toEqual({});
   });
 
+  it("accepts a music volume between 0 and 1 only", () => {
+    expect(parsePreferences(JSON.stringify({ musicVolume: 0.3 }))).toEqual({ musicVolume: 0.3 });
+    expect(parsePreferences(JSON.stringify({ musicVolume: 0 }))).toEqual({ musicVolume: 0 });
+    expect(parsePreferences(JSON.stringify({ musicVolume: 1.5 }))).toEqual({});
+    expect(parsePreferences(JSON.stringify({ musicVolume: -1 }))).toEqual({});
+    expect(parsePreferences(JSON.stringify({ musicVolume: "50%" }))).toEqual({});
+  });
+
   it("treats missing or corrupted data as empty", () => {
     expect(parsePreferences(null)).toEqual({});
     expect(parsePreferences("{oops")).toEqual({});

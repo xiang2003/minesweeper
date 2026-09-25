@@ -1,12 +1,19 @@
 /**
- * UI preferences (language, whether the help was shown), kept apart from game saves.
+ * UI preferences (language, whether the help was shown, music volume), kept apart from game saves.
  * Exposes a tiny subscribe/getSnapshot store for useSyncExternalStore.
  */
 
 export const LANGS = ["en", "zh-Hant"] as const;
 export type Lang = (typeof LANGS)[number];
 
-export type Preferences = { lang?: Lang; seenHelp?: boolean };
+export const DEFAULT_MUSIC_VOLUME = 0.5;
+
+export type Preferences = {
+  lang?: Lang;
+  seenHelp?: boolean;
+  /** Background music volume, 0–1. Undefined means DEFAULT_MUSIC_VOLUME. */
+  musicVolume?: number;
+};
 
 export const PREFS_KEY = "mosaic-puzzle-prefs";
 const EMPTY: Preferences = {};
@@ -27,10 +34,11 @@ export function parsePreferences(raw: string | null): Preferences {
   try {
     const v: unknown = JSON.parse(raw);
     if (typeof v !== "object" || v === null) return EMPTY;
-    const { lang, seenHelp } = v as Record<string, unknown>;
+    const { lang, seenHelp, musicVolume } = v as Record<string, unknown>;
     return {
       ...(LANGS.includes(lang as Lang) ? { lang: lang as Lang } : {}),
       ...(typeof seenHelp === "boolean" ? { seenHelp } : {}),
+      ...(typeof musicVolume === "number" && musicVolume >= 0 && musicVolume <= 1 ? { musicVolume } : {}),
     };
   } catch {
     return EMPTY;

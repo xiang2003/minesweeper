@@ -75,6 +75,9 @@ const en = {
   // Settings
   settingsTitle: "Settings & Save Data",
   language: "Language",
+  music: "Music",
+  musicDesc: "Background music loops while you play. Set to 0% to turn it off.",
+  musicVolume: "Volume",
   backup: "Backup",
   backupDesc:
     "Progress is saved automatically in this browser. Export it to a file to back it up or move it to another device.",
@@ -194,6 +197,9 @@ const zhHant: Strings = {
 
   settingsTitle: "設定與存檔",
   language: "語言",
+  music: "音樂",
+  musicDesc: "遊玩時背景音樂會循環播放。調到 0% 即關閉音樂。",
+  musicVolume: "音量",
   backup: "備份",
   backupDesc: "進度會自動儲存在這個瀏覽器。可以匯出成檔案備份，或搬到其他裝置。",
   exportSave: "匯出存檔",
