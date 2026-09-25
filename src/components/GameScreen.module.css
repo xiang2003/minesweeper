@@ -8,8 +8,20 @@
   font-weight: 500;
 }
 
-.spacer {
+/* Same width as the Back button so the title stays centered. */
+.headerRight {
+  display: flex;
+  justify-content: flex-end;
   width: 76px;
+}
+
+.helpButton {
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  font-weight: 700;
 }
 
 .toolbar {
@@ -103,7 +115,7 @@
   .subtitle {
     display: none;
   }
-  .spacer {
-    width: 0;
+  .headerRight {
+    width: auto;
   }
 }

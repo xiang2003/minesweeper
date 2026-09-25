@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import { getClueStatus, isCellLocked, nextCellState, type Tool } from "@/game/puzzleEngine";
 import type { CellState, GameState, Puzzle } from "@/game/types";
+import { useI18n } from "@/i18n/useI18n";
 import { assetPath } from "@/lib/assetPath";
 import styles from "./PuzzleBoard.module.css";
 
@@ -17,9 +18,9 @@ type Props = {
 
 type Drag = { pointerId: number; from: CellState; value: CellState; lastId: number };
 
-const STATE_LABEL: Record<CellState, string> = { empty: "empty", filled: "filled", marked: "marked empty" };
-
 export default function PuzzleBoard({ puzzle, game, tool, getState, onSet, onClick }: Props) {
+  const { t } = useI18n();
+  const stateLabel: Record<CellState, string> = { empty: t.cellEmpty, filled: t.cellFilled, marked: t.cellMarked };
   const boardRef = useRef<HTMLDivElement>(null);
   const drag = useRef<Drag | null>(null);
   const [focusId, setFocusId] = useState(0);
@@ -133,7 +134,7 @@ export default function PuzzleBoard({ puzzle, game, tool, getState, onSet, onCli
       className={`${styles.board} ${game.completed ? styles.complete : ""}`}
       style={{ "--cols": puzzle.width, "--rows": puzzle.height } as CSSProperties}
       role="group"
-      aria-label={`Puzzle grid, ${puzzle.width} columns by ${puzzle.height} rows`}
+      aria-label={t.gridLabel(puzzle.width, puzzle.height)}
       aria-describedby="board-help"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -145,10 +146,11 @@ export default function PuzzleBoard({ puzzle, game, tool, getState, onSet, onCli
         const status = getClueStatus(puzzle, game, cell.id);
         const { className, style } = layout[cell.id];
         const label = [
-          `Row ${cell.row + 1}, column ${cell.col + 1}`,
-          cell.clue !== undefined ? `clue ${cell.clue}${status === "pending" ? "" : `, ${status}`}` : null,
-          STATE_LABEL[state],
-          locked ? "region solved" : null,
+          t.cellPosition(cell.row + 1, cell.col + 1),
+          cell.clue !== undefined ? t.cellClue(cell.clue) : null,
+          status === "satisfied" ? t.clueSatisfied : status === "error" ? t.clueError : null,
+          stateLabel[state],
+          locked ? t.regionSolved : null,
         ]
           .filter(Boolean)
           .join(", ");

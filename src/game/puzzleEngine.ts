@@ -91,12 +91,26 @@ export function getClueStatus(puzzle: Puzzle, state: GameState, cellId: number):
   return filled === cell.clue ? "satisfied" : "pending";
 }
 
-export type Progress = { completed: number; total: number; ratio: number };
+export type Progress = {
+  /** Filled cells ÷ cells the solution fills, capped at 1. Wrong fills count too, so it never reveals correctness. */
+  ratio: number;
+  filled: number;
+  target: number;
+  completedRegions: number;
+  totalRegions: number;
+};
 
 export function getProgress(puzzle: Puzzle, state: GameState): Progress {
-  const total = puzzle.regions.length;
-  const completed = state.completedRegions.length;
-  return { completed, total, ratio: total === 0 ? 0 : completed / total };
+  const target = puzzle.solution.filter(Boolean).length;
+  const filled = state.cells.filter((s) => s === "filled").length;
+  const ratio = state.completed ? 1 : target === 0 ? 0 : Math.min(1, filled / target);
+  return {
+    ratio,
+    filled,
+    target,
+    completedRegions: state.completedRegions.length,
+    totalRegions: puzzle.regions.length,
+  };
 }
 
 export function filledCellIds(state: GameState): number[] {

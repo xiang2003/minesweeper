@@ -115,7 +115,13 @@ describe("region and puzzle completion", () => {
     let s = fillAll(createGame(puzzle), solutionIds(puzzle, 0));
     expect(s.completedRegions).toEqual([0]);
     expect(s.completed).toBe(false);
-    expect(getProgress(puzzle, s)).toEqual({ completed: 1, total: 2, ratio: 0.5 });
+    expect(getProgress(puzzle, s)).toEqual({
+      ratio: 0.5, // 2 of the 4 solution cells filled
+      filled: 2,
+      target: 4,
+      completedRegions: 1,
+      totalRegions: 2,
+    });
 
     // A wrong extra cell in region 1 keeps it incomplete.
     s = fillAll(s, [3, ...solutionIds(puzzle, 1)]);
@@ -140,6 +146,14 @@ describe("region and puzzle completion", () => {
     const s = fillAll(createGame(puzzle), solutionIds(puzzle));
     expect(s.completed).toBe(true);
     expect(getProgress(puzzle, s).ratio).toBe(1);
+  });
+
+  it("counts wrong fills in progress (no correctness leak) and caps at 100%", () => {
+    const wrong = fillAll(createGame(puzzle), [1, 3]);
+    expect(getProgress(puzzle, wrong).ratio).toBe(0.5);
+    const tooMany = fillAll(createGame(puzzle), [1, 3, 5, 7, 0]);
+    expect(getProgress(puzzle, tooMany).ratio).toBe(1);
+    expect(tooMany.completed).toBe(false);
   });
 
   it("restores completion from saved cells, ignoring bad ids", () => {

@@ -17,6 +17,13 @@
 - 提示數字狀態：已滿足（變淡）、錯誤（紅色＋波浪底線，點亮過多或剩餘空格不足）。
 - 鍵盤：方向鍵移動、Space/Enter 點亮、X 標記、Delete 清除。
 
+## 語言與遊戲說明
+
+- 支援 **English / 繁體中文**。第一次進入首頁會先選擇語言，之後可在「設定」頁更改；尚未選擇時依瀏覽器語言自動判斷。
+- 遊戲畫面右上角的 **?** 按鈕可隨時開啟遊戲說明（含圖例）；第一次進入遊戲時會自動顯示一次。首頁也有同樣的說明。
+- 所有介面文字集中在 `src/i18n/strings.ts`。新增語言：在 `src/lib/preferences.ts` 的 `LANGS` 加上語言代碼，並在 `strings.ts` 補上一份對應的字串表（TypeScript 會檢查是否缺字）。
+- 語言與「是否看過說明」存在 localStorage 的 `mosaic-puzzle-prefs`，與遊戲存檔分開；「清除所有資料」會一併清除。
+
 ## 安裝與開發
 
 需要 Node.js 20.9 以上（建議 22）。
@@ -101,7 +108,7 @@ public/images/                # 關卡圖片
 
    const puzzle003: PuzzleDefinition = {
      id: "003",
-     title: "My Level",
+     title: { en: "My Level", "zh-Hant": "我的關卡" },  // 也可以只寫字串
      image: "images/puzzle-003.png",
      clueRadius: 1,          // 可省略，預設 1（3×3）
      clueScope: "region",    // 可省略，預設 "region"（只算同 Region）；"grid" = 跨 Region 計算

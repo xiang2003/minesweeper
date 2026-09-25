@@ -2,7 +2,7 @@ import type { PuzzleDefinition } from "@/game/types";
 
 const puzzle001: PuzzleDefinition = {
   id: "001",
-  title: "Sunrise",
+  title: { en: "Sunrise", "zh-Hant": "日出" },
   image: "images/puzzle-001.svg",
   clueRadius: 1,
   clueScope: "region",

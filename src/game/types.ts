@@ -9,9 +9,12 @@
 /** Compact, human-editable level format. Every string row must be `width` long. */
 export type ClueScope = "region" | "grid";
 
+/** Plain text, or one string per UI language (e.g. { en: "Sunrise", "zh-Hant": "日出" }); "en" is the fallback. */
+export type LocalizedText = string | ({ en: string } & Record<string, string>);
+
 export type PuzzleDefinition = {
   id: string;
-  title: string;
+  title: LocalizedText;
   /** Image revealed region by region, relative to /public (e.g. "images/demo-001.svg"). */
   image: string;
   /** Clue counts the (2r+1)×(2r+1) square around the clue cell, the cell itself included. Default 1. */
@@ -51,7 +54,7 @@ export type Region = {
 
 export type Puzzle = {
   id: string;
-  title: string;
+  title: LocalizedText;
   image: string;
   width: number;
   height: number;
