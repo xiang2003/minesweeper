@@ -30,11 +30,12 @@ export function restoreGame(puzzle: Puzzle, filled: number[], marked: number[] =
   return withCompletion(puzzle, { puzzleId: puzzle.id, cells, completedRegions: [], completed: false });
 }
 
-/** The finished board: every solution cell filled, every region complete. Used by "auto-solve". */
+/** The finished board: every solution cell filled, every other cell marked. Used by "auto-solve". */
 export function solveGame(puzzle: Puzzle): GameState {
   return restoreGame(
     puzzle,
     puzzle.cells.filter((c) => puzzle.solution[c.id]).map((c) => c.id),
+    puzzle.cells.filter((c) => !puzzle.solution[c.id]).map((c) => c.id),
   );
 }
 
@@ -66,8 +67,11 @@ export function clickCell(puzzle: Puzzle, state: GameState, cellId: number, tool
   return setCell(puzzle, state, cellId, nextCellState(state.cells[cellId], tool));
 }
 
+/** A region is solved only once every cell has been decided: filled where the solution fills, marked elsewhere. */
 export function isRegionSolved(puzzle: Puzzle, cells: CellState[], regionId: number): boolean {
-  return puzzle.regions[regionId].cells.every((id) => (cells[id] === "filled") === puzzle.solution[id]);
+  return puzzle.regions[regionId].cells.every((id) =>
+    puzzle.solution[id] ? cells[id] === "filled" : cells[id] === "marked",
+  );
 }
 
 function withCompletion(puzzle: Puzzle, state: GameState): GameState {

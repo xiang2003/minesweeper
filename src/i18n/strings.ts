@@ -122,7 +122,7 @@ const en = {
     statesNote: "A red number means too many cells are filled, or not enough open cells are left.",
     regionsTitle: "Regions & progress",
     regions:
-      "When every cell of a region is correct, the region locks and shows its piece of the picture. Solve all regions to see the whole image.",
+      "A region locks once every one of its cells is decided correctly — filled where it should be, marked where it shouldn't. A cell left blank keeps the region open, even if the numbers look right.",
     progressNote:
       "The progress bar shows filled cells ÷ cells to fill. Wrong fills count too, so 100% does not always mean solved.",
     savedNote: "Progress is saved automatically.",
@@ -239,7 +239,7 @@ const zhHant: Strings = {
     stateError: "有錯誤（紅色波浪線）",
     statesNote: "數字變紅表示周圍點亮太多，或剩下的空格已經不夠。",
     regionsTitle: "區塊與進度",
-    regions: "一個區塊的格子全部正確時，該區塊會鎖定並顯示對應的圖片。解開所有區塊即可看到完整圖片。",
+    regions: "一個區塊裡每一格都確定正確時才會鎖定：該點亮的要點亮，該空白的要標記 ✕。格子沒標記、只是留白的話，就算數字看起來對了，區塊也不會完成。",
     progressNote: "進度條 = 已點亮格數 ÷ 需點亮格數。點錯的格子也會計入，所以 100% 不一定代表完成。",
     savedNote: "進度會自動儲存。",
     replayNote: "破解過的關卡會永久解鎖：重新開始後，關卡選擇仍會顯示圖片，並可使用「一鍵破解」直接填入答案。",

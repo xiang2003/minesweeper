@@ -26,8 +26,15 @@ const puzzle: Puzzle = parsePuzzle(def);
 const solutionIds = (p: Puzzle, regionId?: number) =>
   p.cells.filter((c) => p.solution[c.id] && (regionId === undefined || c.regionId === regionId)).map((c) => c.id);
 
+const emptyIds = (p: Puzzle, regionId?: number) =>
+  p.cells.filter((c) => !p.solution[c.id] && (regionId === undefined || c.regionId === regionId)).map((c) => c.id);
+
 function fillAll(state: GameState, ids: number[]): GameState {
   return ids.reduce((s, id) => clickCell(puzzle, s, id), state);
+}
+
+function markAll(state: GameState, ids: number[]): GameState {
+  return ids.reduce((s, id) => clickCell(puzzle, s, id, "mark"), state);
 }
 
 describe("parsePuzzle", () => {
@@ -112,8 +119,12 @@ describe("clue status", () => {
 });
 
 describe("region and puzzle completion", () => {
-  it("completes a region only when it exactly matches the solution", () => {
+  it("completes a region only once every cell is filled or marked to match the solution", () => {
     let s = fillAll(createGame(puzzle), solutionIds(puzzle, 0));
+    // Cells 1 and 5 must be empty but are still just blank, not marked.
+    expect(s.completedRegions).toEqual([]);
+
+    s = markAll(s, emptyIds(puzzle, 0));
     expect(s.completedRegions).toEqual([0]);
     expect(s.completed).toBe(false);
     expect(getProgress(puzzle, s)).toEqual({
@@ -124,27 +135,31 @@ describe("region and puzzle completion", () => {
       totalRegions: 2,
     });
 
-    // A wrong extra cell in region 1 keeps it incomplete.
+    // A wrong extra cell in region 1 keeps it incomplete, even once the rest is marked.
     s = fillAll(s, [3, ...solutionIds(puzzle, 1)]);
+    s = markAll(s, [7]);
     expect(s.completedRegions).toEqual([0]);
   });
 
-  it("treats marks as not filled", () => {
-    let s = fillAll(createGame(puzzle), solutionIds(puzzle, 0).slice(0, 1));
-    s = clickCell(puzzle, s, 1, "mark");
-    s = clickCell(puzzle, s, 4);
+  it("requires marking, not just leaving a cell blank", () => {
+    let s = fillAll(createGame(puzzle), solutionIds(puzzle, 0));
+    expect(s.completedRegions).not.toContain(0);
+
+    s = markAll(s, emptyIds(puzzle, 0));
     expect(s.completedRegions).toContain(0);
   });
 
   it("locks completed regions", () => {
-    const s = fillAll(createGame(puzzle), solutionIds(puzzle, 0));
+    let s = fillAll(createGame(puzzle), solutionIds(puzzle, 0));
+    s = markAll(s, emptyIds(puzzle, 0));
     expect(isCellLocked(puzzle, s, 0)).toBe(true);
     expect(clickCell(puzzle, s, 0)).toBe(s);
     expect(isCellLocked(puzzle, s, 2)).toBe(false);
   });
 
   it("completes the puzzle when all regions are solved", () => {
-    const s = fillAll(createGame(puzzle), solutionIds(puzzle));
+    let s = fillAll(createGame(puzzle), solutionIds(puzzle));
+    s = markAll(s, emptyIds(puzzle));
     expect(s.completed).toBe(true);
     expect(getProgress(puzzle, s).ratio).toBe(1);
   });
@@ -154,6 +169,7 @@ describe("region and puzzle completion", () => {
     expect(s.completed).toBe(true);
     expect(s.completedRegions).toEqual([0, 1]);
     expect(s.cells.filter((c) => c === "filled")).toHaveLength(4);
+    expect(s.cells.filter((c) => c === "marked")).toHaveLength(4);
   });
 
   it("counts wrong fills in progress (no correctness leak) and caps at 100%", () => {
@@ -165,9 +181,9 @@ describe("region and puzzle completion", () => {
   });
 
   it("restores completion from saved cells, ignoring bad ids", () => {
-    const s = restoreGame(puzzle, [...solutionIds(puzzle, 1), 999, -3], [1]);
+    const s = restoreGame(puzzle, [...solutionIds(puzzle, 1), 999, -3], [...emptyIds(puzzle, 1), -3]);
     expect(s.completedRegions).toEqual([1]);
-    expect(s.cells[1]).toBe("marked");
+    expect(s.cells[3]).toBe("marked");
     expect(s.completed).toBe(false);
   });
 });

@@ -56,13 +56,14 @@ beforeEach(() => {
 
 describe("save / load", () => {
   it("creates a save from game state", () => {
-    // Filling cell 0 solves region A (row 0); cell 2 is in the unsolved region B.
+    // Filling cell 0 and marking cell 1 solves region A; cell 2 is marked in the still-unsolved region B.
     let state = clickCell(puzzle, createGame(puzzle), 0);
+    state = clickCell(puzzle, state, 1, "mark");
     state = clickCell(puzzle, state, 2, "mark");
     expect(createSave(state, 42)).toEqual({
       puzzleId: "p1",
       selectedCells: [0],
-      markedCells: [2],
+      markedCells: [1, 2],
       completedRegions: [0],
       completed: false,
       cleared: false,
