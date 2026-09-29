@@ -67,11 +67,11 @@
 
 /* Region boundaries */
 .edgeRight {
-  border-right: 2px solid var(--line-strong);
+  border-right: 3px solid var(--line-strong);
 }
 
 .edgeBottom {
-  border-bottom: 2px solid var(--line-strong);
+  border-bottom: 3px solid var(--line-strong);
 }
 
 @media (hover: hover) {
@@ -88,15 +88,15 @@
   color: var(--cell-filled-ink);
 }
 
-/* Marked-empty: a small ✕ drawn behind the clue so state never relies on color alone. */
+/* Marked-empty: a bold ✕ drawn behind the clue so state never relies on color alone. */
 .cell[data-state="marked"]::before {
   content: "";
   position: absolute;
-  inset: 30%;
+  inset: 22%;
   background:
-    linear-gradient(45deg, transparent calc(50% - 1px), var(--ink-soft) calc(50% - 1px), var(--ink-soft) calc(50% + 1px), transparent calc(50% + 1px)),
-    linear-gradient(-45deg, transparent calc(50% - 1px), var(--ink-soft) calc(50% - 1px), var(--ink-soft) calc(50% + 1px), transparent calc(50% + 1px));
-  opacity: 0.55;
+    linear-gradient(45deg, transparent calc(50% - 1.75px), var(--ink) calc(50% - 1.75px), var(--ink) calc(50% + 1.75px), transparent calc(50% + 1.75px)),
+    linear-gradient(-45deg, transparent calc(50% - 1.75px), var(--ink) calc(50% - 1.75px), var(--ink) calc(50% + 1.75px), transparent calc(50% + 1.75px));
+  opacity: 0.85;
   pointer-events: none;
 }
 

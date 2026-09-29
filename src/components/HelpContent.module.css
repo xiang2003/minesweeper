@@ -100,8 +100,10 @@
 
 .marked::before {
   content: "✕";
-  color: var(--ink-soft);
-  font-size: 0.9rem;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.1rem;
+  opacity: 0.85;
 }
 
 .satisfied {
