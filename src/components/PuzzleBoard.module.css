@@ -65,13 +65,14 @@
   border-bottom-width: 0;
 }
 
-/* Region boundaries */
+/* Region boundaries: accent color so the line still reads against filled (dark) cells,
+   not just the near-white empty ones. */
 .edgeRight {
-  border-right: 3px solid var(--line-strong);
+  border-right: 3px solid var(--accent);
 }
 
 .edgeBottom {
-  border-bottom: 3px solid var(--line-strong);
+  border-bottom: 3px solid var(--accent);
 }
 
 @media (hover: hover) {
@@ -135,11 +136,11 @@
 }
 
 .revealed.edgeRight {
-  border-right-color: color-mix(in srgb, var(--line-strong) 45%, transparent);
+  border-right-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .revealed.edgeBottom {
-  border-bottom-color: color-mix(in srgb, var(--line-strong) 45%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .revealed::before,
