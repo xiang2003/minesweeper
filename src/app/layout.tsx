@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import BackgroundMusic from "@/components/BackgroundMusic";
 import LangSync from "@/components/LangSync";
+import LoadingScreen from "@/components/LoadingScreen";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <LangSync />
         <BackgroundMusic />
+        <LoadingScreen />
         {children}
       </body>
     </html>

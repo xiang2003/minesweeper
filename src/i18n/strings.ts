@@ -13,6 +13,7 @@ const en = {
   backToLevels: "Back to level select",
   settings: "Settings",
   cancel: "Cancel",
+  loadingApp: "Loading…",
 
   // Home
   play: "Play",
@@ -144,6 +145,7 @@ const zhHant: Strings = {
   backToLevels: "回到關卡選擇",
   settings: "設定",
   cancel: "取消",
+  loadingApp: "載入中…",
 
   play: "開始遊戲",
   continueLevel: (id) => `繼續 · 第 ${id} 關`,

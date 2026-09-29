@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { assetPath } from "@/lib/assetPath";
+import { setMusicReady } from "@/lib/musicReady";
 import {
   DEFAULT_MUSIC_VOLUME,
   getPreferences,
@@ -43,5 +44,16 @@ export default function BackgroundMusic() {
     return () => events.forEach((type) => window.removeEventListener(type, start));
   }, []);
 
-  return <audio ref={audioRef} src={assetPath(TRACK)} loop preload="none" aria-hidden="true" />;
+  return (
+    <audio
+      ref={audioRef}
+      src={assetPath(TRACK)}
+      loop
+      // "auto" so LoadingScreen has something to wait for; browsers still block playback until interaction.
+      preload="auto"
+      aria-hidden="true"
+      onCanPlayThrough={setMusicReady}
+      onError={setMusicReady}
+    />
+  );
 }
