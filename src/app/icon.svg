@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#3d6b8f"/>
+  <!-- Same 3×3 mosaic pattern as the home screen logo, so the tab icon and in-app mark match. -->
+  <g fill="#fdfbf6">
+    <rect x="6" y="6" width="6" height="6" rx="1.4"/>
+    <rect x="20" y="6" width="6" height="6" rx="1.4"/>
+    <rect x="13" y="13" width="6" height="6" rx="1.4"/>
+    <rect x="20" y="13" width="6" height="6" rx="1.4"/>
+    <rect x="13" y="20" width="6" height="6" rx="1.4"/>
+  </g>
+</svg>
