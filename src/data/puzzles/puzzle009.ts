@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle009: PuzzleDefinition = {
   id: "009",
   title: { en: "Mermaid Princess", "zh-Hant": "美人魚公主" },
-  image: "images/puzzle-009.png",
+  image: "images/puzzle-009.webp",
   clueRadius: 1,
   clueScope: "region",
   // Heart.

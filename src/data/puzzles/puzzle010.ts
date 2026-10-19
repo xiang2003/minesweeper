@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle010: PuzzleDefinition = {
   id: "010",
   title: { en: "Starlight Witch", "zh-Hant": "星光魔女" },
-  image: "images/puzzle-010.png",
+  image: "images/puzzle-010.webp",
   clueRadius: 1,
   clueScope: "region",
   // Sparkle / star burst.

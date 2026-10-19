@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle005: PuzzleDefinition = {
   id: "005",
   title: { en: "Gothic Lolita", "zh-Hant": "歌德蘿莉少女" },
-  image: "images/puzzle-005.png",
+  image: "images/puzzle-005.webp",
   clueRadius: 1,
   clueScope: "region",
   // Crescent moon.

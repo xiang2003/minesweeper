@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle006: PuzzleDefinition = {
   id: "006",
   title: { en: "Shrine Maiden", "zh-Hant": "巫女少女" },
-  image: "images/puzzle-006.png",
+  image: "images/puzzle-006.webp",
   clueRadius: 1,
   clueScope: "region",
   // Torii gate.

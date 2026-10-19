@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle008: PuzzleDefinition = {
   id: "008",
   title: { en: "Snow Princess", "zh-Hant": "雪之公主" },
-  image: "images/puzzle-008.png",
+  image: "images/puzzle-008.webp",
   clueRadius: 1,
   clueScope: "region",
   // Ice crystal (diamond).

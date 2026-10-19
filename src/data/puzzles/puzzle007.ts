@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle007: PuzzleDefinition = {
   id: "007",
   title: { en: "Cyber Hacker", "zh-Hant": "電馭少女" },
-  image: "images/puzzle-007.png",
+  image: "images/puzzle-007.webp",
   clueRadius: 1,
   clueScope: "region",
   // Lightning bolt.

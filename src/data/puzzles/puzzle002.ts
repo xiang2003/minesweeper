@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle002: PuzzleDefinition = {
   id: "002",
   title: { en: "Sailor Girl", "zh-Hant": "水手少女" },
-  image: "images/puzzle-002.png",
+  image: "images/puzzle-002.webp",
   clueRadius: 1,
   clueScope: "region",
   solution: [

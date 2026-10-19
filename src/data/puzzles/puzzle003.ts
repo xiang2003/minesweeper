@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle003: PuzzleDefinition = {
   id: "003",
   title: { en: "Ribbon Girl", "zh-Hant": "蝴蝶結少女" },
-  image: "images/puzzle-003.png",
+  image: "images/puzzle-003.webp",
   clueRadius: 1,
   clueScope: "region",
   solution: [

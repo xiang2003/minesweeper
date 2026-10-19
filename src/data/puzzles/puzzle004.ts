@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle004: PuzzleDefinition = {
   id: "004",
   title: { en: "Kitty Girl", "zh-Hant": "貓耳少女" },
-  image: "images/puzzle-004.png",
+  image: "images/puzzle-004.webp",
   clueRadius: 1,
   clueScope: "region",
   solution: [

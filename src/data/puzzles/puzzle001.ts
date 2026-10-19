@@ -3,7 +3,7 @@ import type { PuzzleDefinition } from "@/game/types";
 const puzzle001: PuzzleDefinition = {
   id: "001",
   title: { en: "Dawn Maiden", "zh-Hant": "晨曦少女" },
-  image: "images/puzzle-001.png",
+  image: "images/puzzle-001.webp",
   clueRadius: 1,
   clueScope: "region",
   solution: [
