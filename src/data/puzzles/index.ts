@@ -10,6 +10,8 @@ import puzzle007 from "./puzzle007";
 import puzzle008 from "./puzzle008";
 import puzzle009 from "./puzzle009";
 import puzzle010 from "./puzzle010";
+import puzzle011 from "./puzzle011";
+import puzzle012 from "./puzzle012";
 
 /** Level order. To add a level: create puzzleNNN.ts, add an image under public/images, append it here. */
 export const puzzleDefinitions: PuzzleDefinition[] = [
@@ -23,6 +25,8 @@ export const puzzleDefinitions: PuzzleDefinition[] = [
   puzzle008,
   puzzle009,
   puzzle010,
+  puzzle011,
+  puzzle012,
 ];
 
 export const puzzles: Puzzle[] = puzzleDefinitions.map(parsePuzzle);
